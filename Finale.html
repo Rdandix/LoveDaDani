@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Per Te</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            max-height: 100vh;
+            background: linear-gradient(135deg, #a8d8ea 0%, #d4f1f9 25%, #b8e6f0 50%, #c5e9f5 75%, #aad5e8 100%);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Georgia', 'Palatino', serif;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            touch-action: manipulation;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Sfondo animato celeste come le slide */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #a8d8ea 0%, #d4f1f9 25%, #b8e6f0 50%, #c5e9f5 75%, #aad5e8 100%);
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        /* Sfere gradiente blu/celeste */
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.5;
+            animation: moveOrb 25s ease-in-out infinite;
+        }
+
+        .orb1 {
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(135, 206, 235, 0.8), rgba(174, 214, 241, 0.3));
+            top: -10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+
+        .orb2 {
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(176, 224, 230, 0.7), rgba(193, 234, 241, 0.2));
+            bottom: -15%;
+            right: -15%;
+            animation-delay: 8s;
+        }
+
+        .orb3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(158, 216, 235, 0.6), rgba(201, 237, 246, 0.2));
+            top: 40%;
+            left: 50%;
+            animation-delay: 16s;
+        }
+
+        @keyframes moveOrb {
+            0%, 100% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+            25% {
+                transform: translate(60px, 120px) scale(1.15) rotate(90deg);
+            }
+            50% {
+                transform: translate(-40px, 60px) scale(0.85) rotate(180deg);
+            }
+            75% {
+                transform: translate(80px, -60px) scale(1.08) rotate(270deg);
+            }
+        }
+
+        /* Bolle celesti */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6), rgba(174, 214, 241, 0.15));
+            box-shadow: 0 8px 32px rgba(135, 206, 235, 0.25);
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.75;
+            }
+            90% {
+                opacity: 0.75;
+            }
+            100% {
+                transform: translateY(-120px) scale(1) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Container principale */
+        .container {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        /* Testo "Cliccami" sopra il cuore */
+        .click-me {
+            position: absolute;
+            top: 25%;
+            color: #d45d79;
+            font-size: 32px;
+            font-weight: 600;
+            text-shadow: 0 2px 8px rgba(212, 93, 121, 0.3);
+            animation: bounce 2s ease-in-out infinite;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Cuore centrale che pulsa - dettagli rosa */
+        .heart-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            filter: drop-shadow(0 15px 50px rgba(255, 120, 150, 0.5));
+        }
+
+        .heart-image {
+            position: relative;
+            z-index: 10;
+            max-width: 400px;
+            width: 60vw;
+            height: auto;
+            animation: pulse 2.5s ease-in-out infinite;
+            transition: transform 0.2s ease;
+        }
+
+        .heart-container:active .heart-image {
+            transform: scale(0.95);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Frase che appare sotto il cuore */
+        .phrase-display {
+            margin-top: 40px;
+            max-width: 90vw;
+            width: 90%;
+            min-height: 15vh;
+            max-height: 25vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            overflow: hidden;
+        }
+
+        .phrase-display.visible {
+            opacity: 1;
+        }
+
+        .phrase {
+            color: #d45d79;
+            font-size: 24px;
+            font-weight: 500;
+            text-align: center;
+            padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 30px rgba(212, 93, 121, 0.25);
+            line-height: 1.6;
+            letter-spacing: 0.3px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Particelle luminose rosa */
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 180, 200, 0.9);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 150, 180, 0.7);
+            animation: sparkleFloat 3s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes sparkleFloat {
+            0%, 100% {
+                opacity: 0;
+                transform: translateY(0) scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-20px) scale(1.5);
+            }
+        }
+
+        /* Responsive per mobile */
+        @media (max-width: 768px) {
+            .click-me {
+                font-size: 6vw;
+                top: 22%;
+            }
+
+            .heart-image {
+                max-width: 50vw;
+                width: 50vw;
+            }
+
+            .phrase {
+                font-size: 4.5vw;
+                padding: 3vh 5vw;
+                max-width: 85vw;
+            }
+
+            .phrase-display {
+                margin-top: 5vh;
+                min-height: 12vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .click-me {
+                font-size: 6.5vw;
+                top: 20%;
+            }
+
+            .heart-image {
+                max-width: 55vw;
+                width: 55vw;
+            }
+
+            .phrase {
+                font-size: 4.8vw;
+                padding: 2.5vh 4vw;
+                border-radius: 16px;
+                line-height: 1.5;
+            }
+
+            .phrase-display {
+                margin-top: 4vh;
+                min-height: 10vh;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .click-me {
+                font-size: 5vw;
+                top: 15%;
+            }
+
+            .heart-image {
+                max-width: 35vw;
+                width: 35vw;
+            }
+
+            .phrase {
+                font-size: 3.5vw;
+                padding: 2vh 4vw;
+            }
+
+            .phrase-display {
+                margin-top: 3vh;
+                min-height: 8vh;
+            }
+        }
+
+        /* Animazione fade per cambio frase */
+        .phrase.fade-out {
+            animation: fadeOut 0.3s ease-out forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sfondo animato celeste come le slide -->
+    <div class="background" id="background">
+        <div class="gradient-orb orb1"></div>
+        <div class="gradient-orb orb2"></div>
+        <div class="gradient-orb orb3"></div>
+    </div>
+
+    <div class="container">
+        <!-- Testo cliccami -->
+        <div class="click-me" id="clickMe">Cliccami</div>
+
+        <!-- Cuore cliccabile -->
+        <div class="heart-container" id="heartContainer">
+            <img src="img/heart.png" alt="Cuore" class="heart-image">
+        </div>
+
+        <!-- Area dove appare la frase -->
+        <div class="phrase-display" id="phraseDisplay"></div>
+    </div>
+
+    <script>
+        const phrases = [
+            "Con te non devo fingere di essere forte",
+            "Sei il posto dove mi fermo quando tutto corre",
+            "Non prometto niente, ma resto davvero",
+            "Resto se ci sei, anche senza sapere perché",
+            "Con te anche il silenzio ha una forma giusta",
+            "Se mi perdo, so dove tornare"
+        ];
+
+        let currentPhraseIndex = 0;
+        let isFirstClick = true;
+
+        const heartContainer = document.getElementById('heartContainer');
+        const phraseDisplay = document.getElementById('phraseDisplay');
+        const clickMeText = document.getElementById('clickMe');
+
+        // Funzione per mostrare la frase
+        function showPhrase() {
+            // Nascondi "Cliccami" al primo click
+            if (isFirstClick) {
+                clickMeText.style.opacity = '0';
+                clickMeText.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    clickMeText.style.display = 'none';
+                }, 500);
+                isFirstClick = false;
+            }
+
+            // Se c'è già una frase, fai fade out
+            const existingPhrase = phraseDisplay.querySelector('.phrase');
+            if (existingPhrase) {
+                existingPhrase.classList.add('fade-out');
+                setTimeout(() => {
+                    showNewPhrase();
+                }, 300);
+            } else {
+                showNewPhrase();
+            }
+        }
+
+        // Mostra nuova frase
+        function showNewPhrase() {
+            phraseDisplay.innerHTML = `<div class="phrase">${phrases[currentPhraseIndex]}</div>`;
+            phraseDisplay.classList.add('visible');
+
+            // Passa alla prossima frase (ciclo infinito)
+            currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+        }
+
+        // Event listener per click/tap
+        heartContainer.addEventListener('click', showPhrase);
+
+        // Crea bolle celesti animate
+        function createBubbles() {
+            const background = document.getElementById('background');
+            for (let i = 0; i < 20; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                const size = Math.random() * 85 + 45;
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                bubble.style.left = Math.random() * 100 + '%';
+                bubble.style.animationDuration = (Math.random() * 13 + 13) + 's';
+                bubble.style.animationDelay = Math.random() * 7 + 's';
+                background.appendChild(bubble);
+            }
+        }
+
+        // Crea particelle luminose rosa casuali
+        function createSparkles() {
+            const container = document.querySelector('.container');
+
+            for (let i = 0; i < 30; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                sparkle.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                container.appendChild(sparkle);
+            }
+        }
+
+        // Inizializza
+        createBubbles();
+        createSparkles();
+    </script>
+</body>
+</html>

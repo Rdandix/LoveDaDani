@@ -1,0 +1,492 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Quicksand', 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Sfondo animato molto dinamico */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #a8d8ea 0%, #d4f1f9 25%, #b8e6f0 50%, #c5e9f5 75%, #aad5e8 100%);
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* Sfere gradiente che si muovono */
+.gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.5;
+    animation: moveOrb 25s ease-in-out infinite;
+}
+
+.orb1 {
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(135, 206, 235, 0.8), rgba(174, 214, 241, 0.3));
+    top: -10%;
+    left: -10%;
+    animation-delay: 0s;
+}
+
+.orb2 {
+    width: 550px;
+    height: 550px;
+    background: radial-gradient(circle, rgba(176, 224, 230, 0.7), rgba(193, 234, 241, 0.2));
+    bottom: -15%;
+    right: -15%;
+    animation-delay: 8s;
+}
+
+.orb3 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(158, 216, 235, 0.6), rgba(201, 237, 246, 0.2));
+    top: 40%;
+    left: 50%;
+    animation-delay: 16s;
+}
+
+@keyframes moveOrb {
+    0%, 100% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+    25% {
+        transform: translate(60px, 120px) scale(1.15) rotate(90deg);
+    }
+    50% {
+        transform: translate(-40px, 60px) scale(0.85) rotate(180deg);
+    }
+    75% {
+        transform: translate(80px, -60px) scale(1.08) rotate(270deg);
+    }
+}
+
+/* Bolle dinamiche */
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6), rgba(174, 214, 241, 0.15));
+    box-shadow: 0 8px 32px rgba(135, 206, 235, 0.25);
+    animation: float linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.75;
+    }
+    90% {
+        opacity: 0.75;
+    }
+    100% {
+        transform: translateY(-120px) scale(1) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Girasoli stilizzati celeste (decorativi nello sfondo) */
+.sunflower-deco {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    opacity: 0.12;
+    animation: rotateSunflower 30s linear infinite;
+}
+
+.sunflower-deco::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(135, 206, 235, 0.3) 20%, transparent 20%),
+                radial-gradient(circle, transparent 30%, rgba(174, 214, 241, 0.2) 30%, rgba(174, 214, 241, 0.2) 45%, transparent 45%);
+    border-radius: 50%;
+}
+
+@keyframes rotateSunflower {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Container principale */
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+}
+
+/* Form effetto vetro con transizioni */
+.glass-form {
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(28px) saturate(200%);
+    -webkit-backdrop-filter: blur(28px) saturate(200%);
+    border-radius: 32px;
+    border: 2.5px solid rgba(255, 255, 255, 0.65);
+    box-shadow: 0 25px 70px rgba(135, 206, 235, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.35) inset;
+    padding: 50px 40px;
+    max-width: 560px;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    animation: slideIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.3s ease;
+}
+
+.glass-form:hover {
+    transform: translateY(-3px);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.93);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Immagine nella slide del form */
+.slide-image {
+    width: 100%;
+    max-width: 330px;
+    height: 290px;
+    object-fit: cover;
+    border-radius: 22px;
+    margin: 0 auto 32px;
+    display: block;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.2);
+    border: 4px solid rgba(255, 255, 255, 0.88);
+    transition: transform 0.4s ease;
+}
+
+.slide-image:hover {
+    transform: scale(1.02);
+}
+
+/* Foto fluttuanti laterali */
+.floating-photo {
+    position: fixed;
+    width: 135px;
+    height: 135px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.28);
+    border: 4px solid rgba(255, 255, 255, 0.92);
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.floating-photo.active {
+    opacity: 0.9;
+    animation: floatGentle 8s ease-in-out infinite;
+}
+
+@keyframes floatGentle {
+    0%, 100% {
+        transform: translateY(0) rotate(-3deg);
+    }
+    50% {
+        transform: translateY(-25px) rotate(3deg);
+    }
+}
+
+.floating-photo.left {
+    left: 5%;
+    top: 18%;
+}
+
+.floating-photo.right {
+    right: 5%;
+    top: 58%;
+}
+
+/* Contenuto slide con transizioni fluide */
+.slide-content {
+    text-align: center;
+    animation: fadeSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-content.transitioning {
+    animation: fadeOut 0.4s ease forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+}
+
+.slide-content h2 {
+    color: #4fa8d5;
+    font-size: 32px;
+    margin-bottom: 28px;
+    font-weight: 700;
+    line-height: 1.4;
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: 0.3px;
+}
+
+.slide-content p {
+    color: #2c3e50;
+    font-size: 19px;
+    line-height: 2;
+    margin-bottom: 38px;
+    white-space: pre-line;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+}
+
+/* Bottoni con micro-animazioni */
+.buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 17px 42px;
+    border: none;
+    border-radius: 50px;
+    font-size: 19px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
+    -webkit-tap-highlight-color: transparent;
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-next {
+    background: linear-gradient(135deg, #a8d8ea, #5dade2);
+    color: white;
+}
+
+.btn-back {
+    background: linear-gradient(135deg, #e0e7ea, #bdc8ce);
+    color: #34495e;
+}
+
+.btn-yes {
+    background: linear-gradient(135deg, #b4ecd4, #85d8ab);
+    color: white;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-no {
+    background: linear-gradient(135deg, #ffc4ca, #ff9ba3);
+    color: white;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Schermata finale cuore */
+.heart-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, #ff9a9e 0%, #fad0c4 50%, #ffecd2 100%);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.heart-screen.active {
+    display: flex;
+    animation: fadeIn 2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Canvas per il cuore di particelle */
+#heartCanvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Responsive canvas */
+@media (max-width: 768px) {
+    #heartCanvas {
+        max-width: 90vw;
+        max-height: 90vh;
+    }
+}
+
+@media (max-width: 480px) {
+    #heartCanvas {
+        max-width: 95vw;
+        max-height: 80vh;
+    }
+}
+
+/* Responsive per dispositivi Apple */
+@media (max-width: 768px) {
+    .glass-form {
+        padding: 38px 28px;
+        max-width: 95%;
+        border-radius: 28px;
+    }
+
+    .slide-content h2 {
+        font-size: 28px;
+        margin-bottom: 24px;
+    }
+
+    .slide-content p {
+        font-size: 18px;
+        line-height: 1.9;
+    }
+
+    .btn {
+        padding: 15px 36px;
+        font-size: 18px;
+    }
+
+    .floating-photo {
+        width: 95px;
+        height: 95px;
+        border-radius: 16px;
+    }
+
+    .floating-photo.left {
+        left: 3%;
+        top: 12%;
+    }
+
+    .floating-photo.right {
+        right: 3%;
+        top: 68%;
+    }
+
+    .slide-image {
+        max-width: 290px;
+        height: 250px;
+        border-radius: 20px;
+    }
+
+    .final-message {
+        font-size: 30px;
+        padding: 0 20px;
+    }
+
+    .sunflower-deco {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    .glass-form {
+        padding: 32px 22px;
+        border-radius: 26px;
+    }
+
+    .slide-content h2 {
+        font-size: 26px;
+        margin-bottom: 22px;
+    }
+
+    .slide-content p {
+        font-size: 17px;
+        line-height: 1.85;
+    }
+
+    .btn {
+        padding: 14px 32px;
+        font-size: 17px;
+    }
+
+    .floating-photo {
+        width: 80px;
+        height: 80px;
+        border-radius: 14px;
+    }
+
+    .slide-image {
+        max-width: 270px;
+        height: 230px;
+        border-radius: 18px;
+    }
+
+    .final-message {
+        font-size: 26px;
+    }
+
+    .sunflower-deco {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+.hidden {
+    display: none;
+}
