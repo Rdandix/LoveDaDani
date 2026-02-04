@@ -5,6 +5,7 @@ const slides = [
         type: 'text',
         title: '',
         text: `Per Fede Serafika <3
+        (Branchiosaura 🦕)
 Da questo momento non mi guardare e non mi parlare,
 vai solo avanti,
 a meno che tu non ne abbia proprio necessità...
